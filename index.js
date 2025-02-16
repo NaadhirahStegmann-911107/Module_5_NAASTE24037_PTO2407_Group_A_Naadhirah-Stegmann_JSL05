@@ -12,6 +12,11 @@ const songs = [
     { title: "I'm Not in Love", artist: "10cc", genre: "Pop" },
     { title: "Fooled Around and Fell in Love", artist: "Elvin Bishop", genre: "Rock" },
     // Feel free to add even more songs
+    { title: "Go All the Way", artist: "Raspberries", genre: "Rock" },
+    { title: "Reasons", artist: "Earth, Wind & Fire", genre: "R&B" },
+    { title: "Wham Bam", artist: "Silver", genre: "Pop"},
+    { title: "Flashlight", artist: "Parliment-Funkadelic", genre: "R&B" },
+
 ];
 
 
