@@ -40,14 +40,14 @@ function generatePlaylist(guardians, songs) {
             playlist: songs.filter(song => song.genre === genre)
         };
     });
-    console.log("generatedPlaylists:", playlists);
+    console.log("generatedPlaylist:", playlists);
     return playlists;
 }
 
 // Call generatePlaylist and display the playlists for each Guardian
 generatePlaylist(guardians, songs);
 
-generatedPlaylists.forEach(({ guardian, playlist }) => {
+generatedPlaylist.forEach(({ guardian, playlist }) => {
     console.log(`Playlist for ${guardian}:`);
     playlist.forEach(song => console.log(`- ${song.title} by ${song.artist}`));
     console.log();
