@@ -42,4 +42,8 @@ function generatePlaylist(guardians, songs) {
 // Call generatePlaylist and display the playlists for each Guardian
 generatePlaylist(guardians, songs);
 
-
+generatedPlaylists.forEach(({ guardian, playlist }) => {
+    console.log(`Playlist for ${guardian}:`);
+    playlist.forEach(song => console.log(`- ${song.title} by ${song.artist}`));
+    console.log();
+});
