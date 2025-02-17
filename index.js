@@ -21,43 +21,47 @@ const songs = [
 
 
 // Object containing each Guardian's preferred genre
-const guardians = {
-    "Star-Lord": "Rock",
-    "Gamora": "Pop",
+const guardians = [
+    {"Star-Lord": "Rock"},
+    {"Gamora": "Pop"},
     // Add preferences for Drax, Rocket, and Groot
-    "Drax": "R&B",
-    "Rocket": "Rock",
-    "Groot": "Pop",
-};
+    {"Drax": "R&B"},
+    {"Rocket": "Rock"},
+    {"Groot": "Pop"},
+];
 
 // Function to generate playlist based on preferred genre
 function generatePlaylist(guardians, songs) {
     // Use the map() function to create playlists for each Guardian
     // Your code here
-    return Object.entries(guardians).map(([guardian, genre]) => ({
-        guardian,
-        playlist: songs.filter(song => song.genre === genre)
-        
-    }));
-}
-function displayPlaylist() {
-    const playlistContainer = document.getElementById("playlists");
-    if (!playlistContainer) {
-        console.error( "Error: No element found with the given id.");
-        return;
-    }
+    guardians.map(function(guardian) {
+        const playlist = songs.filter(song => song.genre === guardians.genrePreference);
+
+        //Display the playlists
+        displayPlaylist(guardian, playlist);
+    });
 }
 
-// Call generatePlaylist and display the playlists for each Guardian
-const generatePlaylist(guardians, songs);
-generatedPlaylist.forEach(({ guardian, playlist }) => {
+function displayPlaylist(guardians, playlist) {
+
+    const playlistDiv = document.getElementById("playlists");
+    
     const guardianDiv = document.createElement("div");
+
+    guardianDiv.classList.add("playlist-container");
+
     guardianDiv.innerHTML = `<h2>${guardian}'s Playlist</h2>`;
+
     const songList = document.createElement("ul");
-    playlist.forEach(({ title, artist }) => {
-        const song = document.createElement("li");
-        song.innerText = `${title} by ${artist}`;
-        songList.appendChild(song);
-    });
-});
-document.addEventListener("DOMContentLoaded", displayPlaylist);
+        playlist.map(function(song) {
+            const songItem = document.createElement("li");
+            songItem.innerText = `${title} by ${artist}`;
+            songListElement.appendChild(songItem);
+        });
+
+    guardianDiv.appendChild(songListElement);
+
+   playlistDiv.appendChild(guardianDiv);
+}
+// Call generatePlaylist and display the playlists for each Guardian
+generatePlaylist(guardians, songs);
