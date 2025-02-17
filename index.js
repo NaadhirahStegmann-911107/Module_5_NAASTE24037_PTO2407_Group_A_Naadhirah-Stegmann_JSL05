@@ -23,61 +23,44 @@ const songs = [
 
 // Object containing each Guardian's preferred genre
 const guardians = [
-    {name: "Star-Lord", genrePreference: "Rock"},
-    {name: "Gamora", genrePreference: "Pop"},
+    {name: "Star-Lord", genre: "Rock"},
+    {name: "Gamora", genre: "Pop"},
     // Add preferences for Drax, Rocket, and Groot
-    {name: "Drax", genrePreference: "R&B"},
-    {name: "Rocket", genrePreference: "Rock"},
-    {name: "Groot", genrePreference: "Pop"},
+    {name: "Drax", genre: "R&B"},
+    {name: "Rocket", genre: "Rock"},
+    {name: "Groot", genre: "Pop"},
 ];
 
 // Function to generate playlist based on preferred genre
 function generatePlaylist(guardians, songs) {
     // Use the map() function to create playlists for each Guardian
     // Your code here
-    return guardians.map(guardian => {
-        const playlist = songs.filter(song => song.genre === guardians.genre);
-        return {
-            guardian:guardian.name,
-            playlist: playlist
-        };
+    return generatedPlaylist(guardians => {
+        const playlist = songs.filter(song => song.genre ===guardians.genre);
 
-    });
-}
+        displayPlaylist(guardians, playlist);
+    })}
 
 function displayPlaylist(guardians, playlist) {
-    console.log(`Displaying playlists for the guardians;`, playlists);
-
-   const playlistDiv = document.getElementById("playlists");
-    
-   guardians.map((guardian, index) => {
+    const playlistDiv = document.getElementById("playlist");
     const guardianDiv = document.createElement("div");
 
-    guardianDiv.classList.add("playlist");
-
-    guardiansDiv.innerHTML = `<h2>${guardians.name}'s Playlist</h2>`;
+    guardianDiv.classList.add("playlist-container");
+    guardianDiv.innerHTML = `<h2>${guardians.name}'s Playlist</h2>`;
 
     const songListElement = document.createElement("ul");
-        playlist[index].playlist.map(song => {
-            const songItem  = document.createElement("li");
-            songItem.classList.add("song");
-            const songTitle = document.createElement("span")
-            songTitle.classList.add("song-title");
-            songTitle.innerHTML = `<a href+"#">${song.title} by ${song.artist}</a>`;
+    
+    playlist.map(song => {
+        const songItem = document.createElement("li");
+        songItem.innerHTML = `<span class="song-title">$(song.title)</span> by ${song.artist}`;
 
-            songItem.appendChild(songTitle);
+        songListElement.appendChild(songItem);
+    })
 
-            songListElement.appendChild(songItem);
+    guardianDiv.appendChild(songListElement);
+    playlistDiv.appendChild(guardianDiv);
+}
+            
          
-            songItems.forEach(songItem => {songListElement.appendChild(songItem)});
-        });
-        
-         
-        guardiansDiv.appendChild(songListElement);
-
-        playlistDiv.appendChild(guardiansDiv);
-});
-
-};    
 // Call generatePlaylist and display the playlists for each Guardian
 generatePlaylist(guardians, songs);
