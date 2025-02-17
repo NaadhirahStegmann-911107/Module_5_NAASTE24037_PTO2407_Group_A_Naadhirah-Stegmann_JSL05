@@ -16,52 +16,68 @@ const songs = [
     { title: "Reasons", artist: "Earth, Wind & Fire", genre: "R&B" },
     { title: "Wham Bam", artist: "Silver", genre: "Pop"},
     { title: "Flashlight", artist: "Parliment-Funkadelic", genre: "R&B" },
+    { title: "Bring It on Home to Me", artist: "Sam Cooke", genre: "R&B" },
 
 ];
 
 
 // Object containing each Guardian's preferred genre
 const guardians = [
-    {"Star-Lord": "Rock"},
-    {"Gamora": "Pop"},
+    {name: "Star-Lord", genrePreference: "Rock"},
+    {name: "Gamora", genrePreference: "Pop"},
     // Add preferences for Drax, Rocket, and Groot
-    {"Drax": "R&B"},
-    {"Rocket": "Rock"},
-    {"Groot": "Pop"},
+    {name: "Drax", genrePreference: "R&B"},
+    {name: "Rocket", genrePreference: "Rock"},
+    {name: "Groot", genrePreference: "Pop"},
 ];
 
 // Function to generate playlist based on preferred genre
 function generatePlaylist(guardians, songs) {
     // Use the map() function to create playlists for each Guardian
     // Your code here
-    guardians.map(function(guardian) {
-        const playlist = songs.filter(song => song.genre === guardians.genrePreference);
+    return guardians.map(guardian => {
+        const playlist = songs.filter(song => song.genre === guardians.genre);
+        return {
+            guardian:guardian.name,
+            playlist: playlist
+        };
 
-        //Display the playlists
-        displayPlaylist(guardian, playlist);
     });
 }
 
 function displayPlaylist(guardians, playlist) {
+    console.log(`Displaying playlists for the guardians;`, playlists);
 
-    const playlistDiv = document.getElementById("playlists");
+   const playlistDiv = document.getElementById("playlists");
     
+   guardians.map((guardian, index) => {
     const guardianDiv = document.createElement("div");
 
-    guardianDiv.classList.add("playlist-container");
+    guardianDiv.classList.add("playlist");
 
-    guardianDiv.innerHTML = `<h2>${guardian}'s Playlist</h2>`;
+    guardiansDiv.innerHTML = `<h2>${guardians.name}'s Playlist</h2>`;
 
-    const songList = document.createElement("ul");
-        playlist.map(function(song) {
-            const songItem = document.createElement("li");
-            songItem.innerText = `${title} by ${artist}`;
+    const songListElement = document.createElement("ul");
+        playlist[index].playlist.map(song => {
+            const songItem  = document.createElement("li");
+            songItem.classList.add("song");
+            const songTitle = document.createElement("span")
+            songTitle.classList.add("song-title");
+            songTitle.innerHTML = `<a href+"#">${song.title} by ${song.artist}</a>`;
+
+            songItem.appendChild(songTitle);
+
             songListElement.appendChild(songItem);
+         
+            songItems.forEach(songItem => {songListElement.appendChild(songItem)});
         });
+        
+         
+        guardiansDiv.appendChild(songListElement);
 
-    guardianDiv.appendChild(songListElement);
+        playlistDiv.appendChild(guardiansDiv);
+});
 
-   playlistDiv.appendChild(guardianDiv);
-}
+};    
 // Call generatePlaylist and display the playlists for each Guardian
 generatePlaylist(guardians, songs);
