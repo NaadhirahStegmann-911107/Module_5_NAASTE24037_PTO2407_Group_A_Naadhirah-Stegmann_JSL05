@@ -35,32 +35,34 @@ const guardians = [
 function generatePlaylist(guardians, songs) {
     // Use the map() function to create playlists for each Guardian
     // Your code here
-    return generatedPlaylist(guardians => {
-        const playlist = songs.filter(song => song.genre ===guardians.genre);
-
-        displayPlaylist(guardians, playlist);
-    })}
-
-function displayPlaylist(guardians, playlist) {
-    const playlistDiv = document.getElementById("playlist");
-    const guardianDiv = document.createElement("div");
-
-    guardianDiv.classList.add("playlist-container");
-    guardianDiv.innerHTML = `<h2>${guardians.name}'s Playlist</h2>`;
-
-    const songListElement = document.createElement("ul");
+    return guardians.map(guardian =>({ 
+        guardian: guardian.name, 
+        playlist: songs.filter(song => song.genre === guardian.genre)
+    }) )
     
-    playlist.map(song => {
-        const songItem = document.createElement("li");
-        songItem.innerHTML = `<span class="song-title">$(song.title)</span> by ${song.artist}`;
+    }
+ 
 
-        songListElement.appendChild(songItem);
-    })
-
-    guardianDiv.appendChild(songListElement);
-    playlistDiv.appendChild(guardianDiv);
+function displayPlaylist(playlist) {
+    const playlistDiv = document.getElementById("playlists");
+    playlistDiv.innerHTML = "";
+    playlist.forEach( ({guardian, playlist}) =>{
+        const guardianDiv = document.createElement("div");
+        guardianDiv.classList.add("playlist");
+        guardianDiv.innerHTML = `<h2>${guardian}</h2>`; 
+        const songList = document.createElement("ul");
+        playlist.forEach(song => {
+            const songItem = document.createElement("li");
+            songItem.innerHTML = `<div><span class= "song-title">${song.title}</span> by ${song.artist}</div>`;
+            songList.appendChild(songItem);
+        });
+        guardianDiv.appendChild(songList);
+        playlistDiv.appendChild(guardianDiv);
+    }) 
 }
             
          
 // Call generatePlaylist and display the playlists for each Guardian
-generatePlaylist(guardians, songs);
+const playlist = generatePlaylist(guardians, songs);
+
+displayPlaylist(playlist);
